@@ -15,6 +15,8 @@ public class GameView extends View {
     private Student student;
     private Paint score = new Paint();
     private int canvasWidth, canvasHeight, eventY;
+    private final static int LIENAR_ACCELERATION = 21, CONSTANT_ACCELERATION = 20, VELOCITY = 1;
+    private int Acceleration_Mod = LIENAR_ACCELERATION;
     private boolean eventTouch;
     private final static double MIDDLE_SCREEN = 2.5;
 
@@ -35,14 +37,18 @@ public class GameView extends View {
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
         if(eventTouch){
-            if(student.getY()-eventY>0){
-                student.setY(student.getY() - student.getSpeed());
-                //eventTouch = false;
-            } else{
-                student.setY(student.getY() + student.getSpeed());
-                //eventTouch = false;
+            if((canvasHeight/MIDDLE_SCREEN)-eventY>=0 && InMap(canvas,student)){
+                //if(InMap(canvas,student)){
+                    goUp();
+                    System.out.println("-----TEST POUR Y INFERIEUR A 0------");
+                    System.out.println("Student Y :"+student.getY());
+            } if((canvasHeight/MIDDLE_SCREEN)-eventY <=0 && InMap(canvas,student)){
+                //if(InMap(canvas,student)) {
+                    goDown();
+                    System.out.println("-----TEST POUR Y SUPERIEUR A "+canvasHeight+"------");
+                    System.out.println("Student Y : "+student.getY()+" Height : "+student.getHeight());
             }
-        }if(student.getY() == 0){
+        }if(student.getY() == -1){
             student.setY((int) (canvasHeight/MIDDLE_SCREEN));
         }
         canvas.drawBitmap(background,0,0,null);
@@ -57,8 +63,45 @@ public class GameView extends View {
             eventTouch = true;
             eventY = (int)event.getY();
         }if(event.getAction() == MotionEvent.ACTION_UP){
+            Stop();
             eventTouch = false;
         }
         return true;
+    }
+
+    private boolean InMap(Canvas canvas,DrawableObject object){
+        if(object.getY()+object.getHeight()<=canvas.getHeight() && object.getY()>=0){
+            return true;
+        }
+        return false ;
+    }
+
+    private void goUp(){
+        switch (Acceleration_Mod) {
+            case CONSTANT_ACCELERATION:
+                student.setSpeed(-(Math.abs(student.getSpeed())));
+                break;
+            case LIENAR_ACCELERATION:
+                student.setSpeed(student.getSpeed()-VELOCITY);
+        }
+            student.setY(Math.max(student.getY() + student.getSpeed(), 0));
+
+    }
+
+    private void goDown(){
+        switch (Acceleration_Mod) {
+            case CONSTANT_ACCELERATION:
+                student.setSpeed(Math.abs(student.getSpeed()));
+                break;
+            case LIENAR_ACCELERATION:
+                student.setSpeed(student.getSpeed()+VELOCITY);
+        }
+
+        student.setY(Math.min(student.getY() + student.getSpeed(),canvasHeight-student.getHeight()));
+    }
+    private void Stop(){
+        if(Acceleration_Mod == LIENAR_ACCELERATION){
+            student.setSpeed(0);
+        }
     }
 }
