@@ -1,5 +1,4 @@
 package com.example.projet_ajourn;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,8 +14,9 @@ public class GameView extends View {
     private Bitmap background;
     private Student student;
     private Paint score = new Paint();
-    private int canvasWidth, canvasHeight, eventY, studientY = 0, speed = 25;
+    private int canvasWidth, canvasHeight, eventY;
     private boolean eventTouch;
+    private final static double MIDDLE_SCREEN = 2.5;
 
     public GameView(Context context) {
         super(context);
@@ -36,17 +36,17 @@ public class GameView extends View {
         canvasHeight = canvas.getHeight();
         if(eventTouch){
             if(student.getY()-eventY>0){
-                student.setY(studientY - speed);
-                eventTouch = false;
+                student.setY(student.getY() - student.getSpeed());
+                //eventTouch = false;
             } else{
-                student.setY(studientY + speed);
-                eventTouch = false;
+                student.setY(student.getY() + student.getSpeed());
+                //eventTouch = false;
             }
         }if(student.getY() == 0){
-            student.setY((int) (canvasHeight/2.5));
+            student.setY((int) (canvasHeight/MIDDLE_SCREEN));
         }
         canvas.drawBitmap(background,0,0,null);
-        canvas.drawBitmap(student.getBitmap(),0,student.setY(),null);
+        canvas.drawBitmap(student.getBitmap(),0,student.getY(),null);
         canvas.drawText("Score : ",20,60,score);
 
     }
@@ -56,6 +56,8 @@ public class GameView extends View {
         if(event.getAction() == MotionEvent.ACTION_DOWN){
             eventTouch = true;
             eventY = (int)event.getY();
+        }if(event.getAction() == MotionEvent.ACTION_UP){
+            eventTouch = false;
         }
         return true;
     }

@@ -13,7 +13,7 @@ public class Student {
     }
 
     public int getX(){
-        return; studentX;
+        return studentX;
     }
 
     public int getY(){
