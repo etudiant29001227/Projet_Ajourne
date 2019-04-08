@@ -15,6 +15,7 @@ public class Number implements DrawableObject {
 
     public Bitmap getBitmap(){
         return number;
+        
     }
     @Override
     public int getX() {
