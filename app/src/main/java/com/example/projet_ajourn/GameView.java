@@ -9,14 +9,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.graphics.Canvas;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class GameView extends View {
 
     private Bitmap background;
     private Student student;
-    private Number number;
-    private Paint score = new Paint();
+    private View view;
+    private ArrayList<Grade> grades = new ArrayList<Grade>();
+    private Random rand = new Random();
+    private Paint scorePaint = new Paint();
+    private int score = 0;
     private int canvasWidth, canvasHeight, eventY;
-    private final static int LIENAR_ACCELERATION = 21, CONSTANT_ACCELERATION = 20, VELOCITY = 1;
+    private final static int LIENAR_ACCELERATION = 21, CONSTANT_ACCELERATION = 20, VELOCITY = 1, MAX_GRADE_IN_SCREEN = 10;
     private int Acceleration_Mod = LIENAR_ACCELERATION;
     private boolean eventTouch;
     private final static double MIDDLE_SCREEN = 2.5;
@@ -25,11 +31,11 @@ public class GameView extends View {
         super(context);
 
         student = new Student(this);
-        number = new Number(this);
+        view = this;
         background = BitmapFactory.decodeResource(getResources(),R.drawable.background);
-        score.setColor(Color.WHITE);
-        score.setTextSize(70);
-        score.setTypeface(Typeface.DEFAULT_BOLD);
+        scorePaint.setColor(Color.WHITE);
+        scorePaint.setTextSize(70);
+        scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
     }
 
     @Override
@@ -43,25 +49,28 @@ public class GameView extends View {
             if((canvasHeight/MIDDLE_SCREEN)-eventY>=0 && InMap(canvas,student)){
                 //if(InMap(canvas,student)){
                     goUp();
-                    System.out.println("-----TEST POUR Y INFERIEUR A 0------");
-                    System.out.println("Student Y :"+student.getY());
+//                    System.out.println("-----TEST POUR Y INFERIEUR A 0------");
+//                    System.out.println("Student Y :"+student.getY());
             } if((canvasHeight/MIDDLE_SCREEN)-eventY <=0 && InMap(canvas,student)){
                 //if(InMap(canvas,student)) {
                     goDown();
-                    System.out.println("-----TEST POUR Y SUPERIEUR A "+canvasHeight+"------");
-                    System.out.println("Student Y : "+student.getY()+" Height : "+student.getHeight());
+//                    System.out.println("-----TEST POUR Y SUPERIEUR A "+canvasHeight+"------");
+//                    System.out.println("Student Y : "+student.getY()+" Height : "+student.getHeight());
             }
         }if(student.getY() == -1){
             student.setY((int) (canvasHeight/MIDDLE_SCREEN));
-            number.setX(canvasHeight+number.getHeight());
-            number.setY((int) (canvasHeight/MIDDLE_SCREEN));
+//            grade.setX(canvasHeight+ grade.getHeight());
+//            grade.setY((int) (canvasHeight/MIDDLE_SCREEN));
+//            CreateGrades(view);
         }
 
+        CreateGrades(view);
         canvas.drawBitmap(background,0,0,null);
         canvas.drawBitmap(student.getBitmap(),0,student.getY(),null);
-        canvas.drawBitmap(number.getBitmap(),number.getX(),number.getY(),null);
-        canvas.drawText("Score : ",20,60,score);
-        number.move();
+        DrawListGrades(canvas);
+        canvas.drawText("Score : "+score,20,60, scorePaint);
+        MoveListGrades();
+        DetectAllColission(student,grades);
 
     }
 
@@ -97,6 +106,7 @@ public class GameView extends View {
     }
 
     private void goDown(){
+
         switch (Acceleration_Mod) {
             case CONSTANT_ACCELERATION:
                 student.setSpeed(Math.abs(student.getSpeed()));
@@ -104,12 +114,54 @@ public class GameView extends View {
             case LIENAR_ACCELERATION:
                 student.setSpeed(student.getSpeed()+VELOCITY);
         }
-
         student.setY(Math.min(student.getY() + student.getSpeed(),canvasHeight-student.getHeight()));
     }
+
     private void Stop(){
         if(Acceleration_Mod == LIENAR_ACCELERATION){
             student.setSpeed(0);
+        }
+    }
+
+    private void CreateGrades(View view){
+
+        for(int i = 0;i<MAX_GRADE_IN_SCREEN;i++){
+            if(grades.size() <MAX_GRADE_IN_SCREEN){
+                CreateGrade(grades, view);
+            }
+        }
+
+    }
+
+    private  void CreateGrade(ArrayList<Grade> grades, View view){
+        Grade grade = new Grade(view);
+        grade.setX(canvasHeight+grade.getHeight());
+        grade.setY(rand.nextInt(canvasHeight-grade.getHeight())+grade.getHeight());
+        grades.add(grade);
+    }
+
+    private  void MoveListGrades(){
+        for(int i =0; i<grades.size();i++){
+            grades.get(i).move();
+        }
+    }
+
+    private void DrawListGrades(Canvas canvas){
+        for(int i =0; i<grades.size();i++){
+            canvas.drawBitmap(grades.get(i).getBitmap(), grades.get(i).getX(), grades.get(i).getY(),null);
+        }
+    }
+
+    private boolean Collision(Student student, Grade grade){
+        return student.getX()<grade.getX()+grade.getWidth() && (student.getX()+grade.getWidth())>grade.getX() && student.getY()<grade.getY()+grade.getHeight() && student.getY()+grade.getHeight()>grade.getY();
+    }
+
+    private void DetectAllColission(Student student,ArrayList<Grade> grades){
+        for(int i = 0;i<grades.size();i++){
+            if(Collision(student,grades.get(i))){
+                score = score + grades.get(i).getScore();
+                grades.remove(grades.get(i));
+            }
         }
     }
 }

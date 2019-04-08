@@ -4,5 +4,6 @@ public interface DrawableObject {
     int getX();
     int getY();
     int getHeight();
+    int getWidth();
 
 }

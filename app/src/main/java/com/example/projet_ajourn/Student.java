@@ -17,16 +17,20 @@ public class Student implements DrawableObject{
         return studentX;
     }
 
-    public int getHeight(){
-        return student.getHeight();
-    }
-
     public int getY(){
         return studentY;
     }
 
     public int getSpeed(){
         return speed;
+    }
+
+    public int getWidth(){
+        return student.getWidth();
+    }
+
+    public int getHeight(){
+        return student.getHeight();
     }
 
     public Bitmap getBitmap(){
