@@ -13,6 +13,7 @@ public class GameView extends View {
 
     private Bitmap background;
     private Student student;
+    private Number number;
     private Paint score = new Paint();
     private int canvasWidth, canvasHeight, eventY;
     private final static int LIENAR_ACCELERATION = 21, CONSTANT_ACCELERATION = 20, VELOCITY = 1;
@@ -24,6 +25,7 @@ public class GameView extends View {
         super(context);
 
         student = new Student(this);
+        number = new Number(this);
         background = BitmapFactory.decodeResource(getResources(),R.drawable.background);
         score.setColor(Color.WHITE);
         score.setTextSize(70);
@@ -36,6 +38,7 @@ public class GameView extends View {
 
         canvasWidth = canvas.getWidth();
         canvasHeight = canvas.getHeight();
+
         if(eventTouch){
             if((canvasHeight/MIDDLE_SCREEN)-eventY>=0 && InMap(canvas,student)){
                 //if(InMap(canvas,student)){
@@ -50,10 +53,15 @@ public class GameView extends View {
             }
         }if(student.getY() == -1){
             student.setY((int) (canvasHeight/MIDDLE_SCREEN));
+            number.setX(canvasHeight+number.getHeight());
+            number.setY((int) (canvasHeight/MIDDLE_SCREEN));
         }
+
         canvas.drawBitmap(background,0,0,null);
         canvas.drawBitmap(student.getBitmap(),0,student.getY(),null);
+        canvas.drawBitmap(number.getBitmap(),number.getX(),number.getY(),null);
         canvas.drawText("Score : ",20,60,score);
+        number.move();
 
     }
 
