@@ -8,7 +8,7 @@ import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
     private GameView game;
-    private final static int REFRESH = 10;
+    private final static int REFRESH = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

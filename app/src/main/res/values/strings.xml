@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Projet_Ajourné</string>
+    <string name="title_label">Name</string>
+    <string name="ok_button">Save</string>
+    <string name="edit_title">ADD SCORE</string>
+
 </resources>

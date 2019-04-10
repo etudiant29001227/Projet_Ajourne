@@ -12,9 +12,8 @@ public class Grade implements DrawableObject {
     private int[] ListBitmap ={R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero
             ,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero};
     private Random rand = new Random();
-    private int grade;
     private final static int MAX_GRADE = 21, LOW_RATING = 10, MEDIUM_RATING = 15;
-    private int numberX,numberY,speed;
+    private int numberX,numberY,speed,grade;
 
     public Grade(View view){
         grade = rand.nextInt(MAX_GRADE);
