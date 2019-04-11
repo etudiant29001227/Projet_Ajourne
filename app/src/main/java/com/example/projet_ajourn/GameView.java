@@ -18,16 +18,16 @@ public class GameView extends View {
     private Bitmap background;
     private Student student;
     private View view;
-    private ArrayList<Grade> grades = new ArrayList<>();
+    private ArrayList<Mark> marks = new ArrayList<>();
     private Random rand = new Random();
     private Paint scorePaint = new Paint(),timerPaint = new Paint();
-    private int Acceleration_Mod = LIENAR_ACCELERATION, canvasWidth, canvasHeight, eventY, score = 0,numberOfGrade = 0, minutes, seconds;
+    private int Acceleration_Mod = LIENAR_ACCELERATION, canvasWidth, canvasHeight, eventY, score = 0, numberOfMark = 0, minutes, seconds;
     private CountDownTimer countDownTimer;
     private long timeLeftInMillisconds;
+    private boolean eventTouch;
     private String timer;
     private final static long CONVERT_TO_SECONDS = 1000, CONVERT_TO_MINUTES = 60000;
-    private final static int LIENAR_ACCELERATION = 21, CONSTANT_ACCELERATION = 20, VELOCITY = 1, MAX_GRADE_IN_SCREEN = 7, CHANGE_TIMER_DISPLAY = 10;
-    private boolean eventTouch;
+    private final static int LIENAR_ACCELERATION = 21, CONSTANT_ACCELERATION = 20, VELOCITY = 1, MAX_MARK_IN_SCREEN = 7, CHANGE_TIMER_DISPLAY = 10;
     private final static double MIDDLE_SCREEN = 2.5;
 
     public GameView(Context context) {
@@ -70,9 +70,9 @@ public class GameView extends View {
         DrawListGrades(canvas);
 
         canvas.drawText("Score : "+score,20,60, scorePaint);
-        canvas.drawText(""+timer,(int) (canvasWidth/MIDDLE_SCREEN),60, timerPaint);
+        canvas.drawText(""+timer,(int) (canvasWidth*0.75),60, timerPaint);
         MoveListGrades();
-        DetectAllCollission(student,grades);
+        DetectAllCollission(student, marks);
 
     }
 
@@ -152,8 +152,8 @@ public class GameView extends View {
 
     private void CreateGrades(View view){
 
-        for(int i = 0;i<MAX_GRADE_IN_SCREEN;i++){
-            if(grades.size() <MAX_GRADE_IN_SCREEN){
+        for(int i = 0; i< MAX_MARK_IN_SCREEN; i++){
+            if(marks.size() < MAX_MARK_IN_SCREEN){
                 CreateGrade(view);
             }
         }
@@ -161,26 +161,26 @@ public class GameView extends View {
     }
 
     private  void CreateGrade(View view){
-        Grade grade = new Grade(view);
+        Mark mark = new Mark(view);
         do {
-            grade.setX(rand.nextInt(canvasHeight * 2 - canvasWidth) + canvasHeight + grade.getHeight());
-            grade.setY(rand.nextInt((canvasHeight - grade.getHeight() - grade.getHeight())) + grade.getHeight());
-        }while (DetectAllCollission(grade,grades));
-        grades.add(grade);
+            mark.setX(rand.nextInt(canvasHeight * 2 - canvasWidth) + canvasHeight + mark.getHeight());
+            mark.setY(rand.nextInt((canvasHeight - mark.getHeight() - mark.getHeight())) + mark.getHeight());
+        }while (DetectAllCollission(mark, this.marks));
+        this.marks.add(mark);
     }
 
     private  void MoveListGrades(){
-        for(int i =0; i<grades.size();i++){
-            grades.get(i).move();
-            if(grades.get(i).getX()<-grades.get(i).getWidth()){
-                grades.remove(grades.get(i));
+        for(int i = 0; i< marks.size(); i++){
+            marks.get(i).move();
+            if(marks.get(i).getX()<-marks.get(i).getWidth()){
+                marks.remove(marks.get(i));
             }
         }
     }
 
     private void DrawListGrades(Canvas canvas){
-        for(int i =0; i<grades.size();i++){
-            canvas.drawBitmap(grades.get(i).getBitmap(), grades.get(i).getX(), grades.get(i).getY(),null);
+        for(int i = 0; i< marks.size(); i++){
+            canvas.drawBitmap(marks.get(i).getBitmap(), marks.get(i).getX(), marks.get(i).getY(),null);
         }
     }
 
@@ -188,13 +188,13 @@ public class GameView extends View {
         return object1.getX()<object2.getX()+object2.getWidth() && (object1.getX()+object2.getWidth())>object2.getX() && object1.getY()<object2.getY()+object2.getHeight() && object1.getY()+object2.getHeight()>object2.getY();
     }
 
-    private boolean DetectAllCollission(DrawableObject object, ArrayList<Grade> grades){
+    private boolean DetectAllCollission(DrawableObject object, ArrayList<Mark> marks){
         boolean collison = false;
-        for(int i = 0;i<grades.size();i++){
-            if(Collision(object,grades.get(i))){
-                score = score + grades.get(i).getScore();
-                numberOfGrade = numberOfGrade + 1;
-                grades.remove(grades.get(i));
+        for(int i = 0; i< marks.size(); i++){
+            if(Collision(object, marks.get(i))){
+                score = score + marks.get(i).getScore();
+                numberOfMark = numberOfMark + 1;
+                marks.remove(marks.get(i));
                 collison = true;
             }
         }

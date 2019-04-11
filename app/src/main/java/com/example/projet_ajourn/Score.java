@@ -24,9 +24,7 @@ public class Score {
         return name;
     }
 
-    public String getResult() {
-        return result;
-    }
+    public String getResult() { return result; }
 
     public float getGrade() {
         return grade;
@@ -36,9 +34,7 @@ public class Score {
         this.name = name;
     }
 
-    public void setResult(String result) {
-        this.result = result;
-    }
+    public void setResult(String result) { this.result = result; }
 
     public void setGrade(float grade) {
         this.grade = grade;

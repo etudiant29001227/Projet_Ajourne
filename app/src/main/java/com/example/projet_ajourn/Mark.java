@@ -6,23 +6,23 @@ import android.view.View;
 
 import java.util.Random;
 
-public class Grade implements DrawableObject {
+public class Mark implements DrawableObject {
 
     private Bitmap number;
     private int[] ListBitmap ={R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero
             ,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero,R.drawable.zero};
     private Random rand = new Random();
-    private final static int MAX_GRADE = 21, LOW_RATING = 10, MEDIUM_RATING = 15;
-    private int numberX,numberY,speed,grade;
+    private final static int MAX_MARK = 21, LOW_RATING = 10, MEDIUM_RATING = 15;
+    private int numberX,numberY,speed, mark;
 
-    public Grade(View view){
-        grade = rand.nextInt(MAX_GRADE);
+    public Mark(View view){
+        mark = rand.nextInt(MAX_MARK);
 
-        number = BitmapFactory.decodeResource(view.getResources(),ListBitmap[grade]);
+        number = BitmapFactory.decodeResource(view.getResources(),ListBitmap[mark]);
 
-        if(grade < LOW_RATING){
+        if(mark < LOW_RATING){
             speed = 10;
-        }if(grade>LOW_RATING && grade<MEDIUM_RATING){
+        }if(mark >LOW_RATING && mark <MEDIUM_RATING){
             speed = 15;
         }else{
             speed = 25;
@@ -63,6 +63,6 @@ public class Grade implements DrawableObject {
     }
 
     public int getScore(){
-        return grade;
+        return mark;
     }
 }
