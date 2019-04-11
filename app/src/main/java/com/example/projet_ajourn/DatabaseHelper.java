@@ -41,5 +41,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_NAME,null,contentValues)!=-1;
     }
 
-    public
 }
