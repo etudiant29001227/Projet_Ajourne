@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/title_edittext"
+        android:id="@+id/edittext"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_textview"

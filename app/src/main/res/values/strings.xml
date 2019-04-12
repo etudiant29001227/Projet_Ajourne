@@ -3,5 +3,11 @@
     <string name="title_label">Name</string>
     <string name="ok_button">Save</string>
     <string name="edit_title">ADD SCORE</string>
+    <string name="difficulty_title">Chose you difficulty</string>
+    <string name="dfficulty1">Licence 1</string>
+    <string name="dfficulty2">Licence 2</string>
+    <string name="dfficulty3">Licence 3</string>
+    <string name="dfficulty4">Master1</string>
+    <string name="dfficulty5">Master 2</string>
 
 </resources>

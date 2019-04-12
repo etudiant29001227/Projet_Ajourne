@@ -3,13 +3,13 @@ package com.example.projet_ajourn;
 public class Score {
     private final long id;
     private String name, result;
-    private float grade;
+    private float mark;
 
-    public Score(long id, String name, float grade){
+    public Score(long id, String name, float mark){
         this.id = id;
         this.name = name;
-        this.grade = grade;
-        if(grade<10){
+        this.mark = mark;
+        if(mark<10){
             result = "AJR";
         }else{
             result = "ADM";
@@ -26,8 +26,8 @@ public class Score {
 
     public String getResult() { return result; }
 
-    public float getGrade() {
-        return grade;
+    public float getMark() {
+        return mark;
     }
 
     public void setName(String name) {
@@ -36,7 +36,7 @@ public class Score {
 
     public void setResult(String result) { this.result = result; }
 
-    public void setGrade(float grade) {
-        this.grade = grade;
+    public void setMark(float mark) {
+        this.mark = mark;
     }
 }

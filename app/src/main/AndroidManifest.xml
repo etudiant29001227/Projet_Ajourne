@@ -10,7 +10,9 @@
         android:screenOrientation="landscape"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditActivity"></activity>
+        <activity android:name=".Level_Activity"></activity>
+        <activity android:name=".Table_Score_Activity" />
+        <activity android:name=".EditActivity" />
         <activity android:name=".GameActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

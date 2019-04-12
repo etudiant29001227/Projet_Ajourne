@@ -1,5 +1,6 @@
 package com.example.projet_ajourn;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -27,12 +28,11 @@ public class GameView extends View {
     private boolean eventTouch;
     private String timer;
     private final static long CONVERT_TO_SECONDS = 1000, CONVERT_TO_MINUTES = 60000;
-    private final static int LIENAR_ACCELERATION = 21, CONSTANT_ACCELERATION = 20, VELOCITY = 1, MAX_MARK_IN_SCREEN = 7, CHANGE_TIMER_DISPLAY = 10;
+    private final static int LIENAR_ACCELERATION = 21, CONSTANT_ACCELERATION = 20, VELOCITY = 1, MAX_MARK_IN_SCREEN = 7, CHANGE_TIMER_DISPLAY = 10, LICENCE_1 = 1,LICENCE_2 = 2, LICENCE_3 = 3, MASTER_1 = 4, MASTER_2 = 5;
     private final static double MIDDLE_SCREEN = 2.5;
 
     public GameView(Context context) {
         super(context);
-        timeLeftInMillisconds = 30000;
         student = new Student(this);
         view = this;
         background = BitmapFactory.decodeResource(getResources(),R.drawable.background);
@@ -199,6 +199,26 @@ public class GameView extends View {
             }
         }
         return  collison;
+    }
+
+    public void setDifficulty(int d){
+        switch (d){
+            case LICENCE_1:
+                timeLeftInMillisconds = 60000;
+                break;
+                case LICENCE_2:
+                    timeLeftInMillisconds = 50000;
+                break;
+                case LICENCE_3:
+                    timeLeftInMillisconds = 40000;
+                break;
+                case MASTER_1:
+                    timeLeftInMillisconds = 30000;
+                break;
+                case MASTER_2:
+                    timeLeftInMillisconds = 20000;
+
+        }
     }
 
 }
