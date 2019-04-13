@@ -10,18 +10,29 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity{
 
-    private Button start;
+    private Button start,score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.start = findViewById(R.id.start);
+        this.score = findViewById(R.id.score);
         start.setOnClickListener(new OnClickListener(){
 
             @Override
             public void onClick(View view) {
                 Intent otherActivity = new Intent(getApplicationContext(),Level_Activity.class);
+                startActivity(otherActivity);
+                finish();
+
+            }
+        });
+        score.setOnClickListener(new OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent otherActivity = new Intent(getApplicationContext(),Table_Score_Activity.class);
                 startActivity(otherActivity);
                 finish();
 

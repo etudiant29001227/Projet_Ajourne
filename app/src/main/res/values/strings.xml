@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">Projet_Ajourné</string>
+    <string name="app_name">Projet Ajourné</string>
+    <string name="start">Start</string>
+    <string name="score">Score</string>
     <string name="title_label">Name</string>
     <string name="ok_button">Save</string>
-    <string name="edit_title">ADD SCORE</string>
+    <string name="edit_title">Add you Score</string>
     <string name="difficulty_title">Chose you difficulty</string>
     <string name="dfficulty1">Licence 1</string>
     <string name="dfficulty2">Licence 2</string>

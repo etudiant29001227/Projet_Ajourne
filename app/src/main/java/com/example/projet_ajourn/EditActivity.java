@@ -9,7 +9,7 @@ import android.widget.EditText;
 public class EditActivity extends AppCompatActivity {
     private MyDBAdapter db;
     private EditText name;
-    private Float mark;
+    private float mark;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +19,7 @@ public class EditActivity extends AppCompatActivity {
         db.open();
         Intent data = getIntent();
         name = (EditText) findViewById(R.id.edittext);
-        mark =  data.getExtras().getFloat("mark",-1);
+        mark =  data.getFloatExtra("mark",-1);
 
     }
 

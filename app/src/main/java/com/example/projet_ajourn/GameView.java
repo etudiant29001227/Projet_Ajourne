@@ -25,7 +25,7 @@ public class GameView extends View {
     private int Acceleration_Mod = LIENAR_ACCELERATION, canvasWidth, canvasHeight, eventY, score = 0, numberOfMark = 0, minutes, seconds;
     private CountDownTimer countDownTimer;
     private long timeLeftInMillisconds;
-    private boolean eventTouch;
+    private boolean eventTouch, endGame = false;
     private String timer;
     private final static long CONVERT_TO_SECONDS = 1000, CONVERT_TO_MINUTES = 60000;
     private final static int LIENAR_ACCELERATION = 21, CONSTANT_ACCELERATION = 20, VELOCITY = 1, MAX_MARK_IN_SCREEN = 7, CHANGE_TIMER_DISPLAY = 10, LICENCE_1 = 1,LICENCE_2 = 2, LICENCE_3 = 3, MASTER_1 = 4, MASTER_2 = 5;
@@ -86,7 +86,7 @@ public class GameView extends View {
 
             @Override
             public void onFinish() {
-
+                endGame = true;
             }
         }.start();
     }
@@ -219,6 +219,14 @@ public class GameView extends View {
                     timeLeftInMillisconds = 20000;
 
         }
+    }
+
+    public float getScore(){
+        return score/numberOfMark;
+    }
+
+    public boolean endGame(){
+        return endGame;
     }
 
 }
