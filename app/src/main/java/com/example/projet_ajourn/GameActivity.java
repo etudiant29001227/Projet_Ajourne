@@ -18,7 +18,6 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         game = new GameView(this);
         difficulty = getIntent().getIntExtra("difficulty",-1);
-        System.out.println("Hard Level : "+difficulty);
         game.setDifficulty(difficulty);
         setContentView(game);
         intent =  new Intent(getApplicationContext(),EditActivity.class);
