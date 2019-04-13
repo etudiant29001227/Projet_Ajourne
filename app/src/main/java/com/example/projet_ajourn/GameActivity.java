@@ -16,7 +16,6 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_game);
         game = new GameView(this);
         difficulty = getIntent().getIntExtra("difficulty",-1);
         System.out.println("Hard Level : "+difficulty);

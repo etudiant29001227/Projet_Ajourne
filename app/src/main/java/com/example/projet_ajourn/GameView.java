@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.view.MotionEvent;
 import android.view.View;
 import android.graphics.Canvas;
@@ -55,11 +56,14 @@ public class GameView extends View {
         if(eventTouch){
             if((canvasHeight/MIDDLE_SCREEN)-eventY>=0 && InMap(canvas,student)){
                     goUp();
+                    student.walkUpAnimation();
             } if((canvasHeight/MIDDLE_SCREEN)-eventY <=0 && InMap(canvas,student)){
                     goDown();
+                    student.walkDownAnimation();
 
             }
-        }if(student.getY() == -1){
+        }else{student.reposeStudent();}
+        if(student.getY() == -1){
             student.setY((int) (canvasHeight/MIDDLE_SCREEN));
             startTimer();
         }
@@ -114,10 +118,13 @@ public class GameView extends View {
     }
 
     private boolean InMap(Canvas canvas,DrawableObject object){
-        if(object.getY()+object.getHeight()<=canvas.getHeight() && object.getY()>=0){
-            return true;
-        }
-        return false ;
+        System.out.println("-------------------------------------------------------------------------------------------------------");
+        System.out.println("Y : "+object.getY());
+        System.out.println("taile de l'image : "+object.getMaxHeight());
+        System.out.println("taile de l'ecran: "+canvas.getHeight());
+
+        System.out.println("Somme de Y+ taile de l'image : "+(object.getY()+object.getMaxHeight()));
+        return ((object.getY()+object.getMaxHeight())<=canvas.getHeight()) && (object.getY()>=0);
     }
 
     private void goUp(){
@@ -141,7 +148,7 @@ public class GameView extends View {
             case LIENAR_ACCELERATION:
                 student.setSpeed(student.getSpeed()+VELOCITY);
         }
-        student.setY(Math.min(student.getY() + student.getSpeed(),canvasHeight-student.getHeight()));
+        student.setY(Math.min(student.getY() + student.getSpeed(),canvasHeight-student.getMaxHeight()));
     }
 
     private void Stop(){

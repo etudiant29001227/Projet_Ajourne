@@ -65,4 +65,9 @@ public class Mark implements DrawableObject {
     public int getScore(){
         return mark;
     }
+
+    @Override
+    public int getMaxHeight() {
+        return 0;
+    }
 }
