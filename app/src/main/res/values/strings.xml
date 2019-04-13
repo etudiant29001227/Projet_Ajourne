@@ -11,5 +11,6 @@
     <string name="dfficulty3">Licence 3</string>
     <string name="dfficulty4">Master1</string>
     <string name="dfficulty5">Master 2</string>
+    <string name="menu_delete">Delete</string>
 
 </resources>

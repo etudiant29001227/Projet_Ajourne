@@ -38,7 +38,7 @@ public class MyDBAdapter {
     public ArrayList<Score> getAllScores(){
         ArrayList<Score> scores = new ArrayList<>();
         Cursor c = db.query(TABLE_SCORES, new String[]{COL_ID,COL_NAME,COL_MARK,COL_RESULT},null,
-                null,null,null,COL_MARK);
+                null,null,null,COL_MARK+" DESC");
         c.moveToFirst();
         while (!c.isAfterLast()){
             scores.add(new Score(c.getLong(0),c.getString(1),c.getFloat(2)));

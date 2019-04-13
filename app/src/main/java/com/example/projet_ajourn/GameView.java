@@ -118,12 +118,6 @@ public class GameView extends View {
     }
 
     private boolean InMap(Canvas canvas,DrawableObject object){
-        System.out.println("-------------------------------------------------------------------------------------------------------");
-        System.out.println("Y : "+object.getY());
-        System.out.println("taile de l'image : "+object.getMaxHeight());
-        System.out.println("taile de l'ecran: "+canvas.getHeight());
-
-        System.out.println("Somme de Y+ taile de l'image : "+(object.getY()+object.getMaxHeight()));
         return ((object.getY()+object.getMaxHeight())<=canvas.getHeight()) && (object.getY()>=0);
     }
 
