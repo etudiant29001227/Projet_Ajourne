@@ -51,6 +51,14 @@ public class Table_Score_Activity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        dbAdapter.close();
+        startActivity(intent);
+        finish();
+
+    }
     public void onDestroy(){
         dbAdapter.close();
         super.onDestroy();

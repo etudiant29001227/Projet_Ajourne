@@ -48,6 +48,13 @@ public class Level_Activity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void goToGme(int difficulty){
         intent.putExtra("difficulty", difficulty);
         Level_Activity.this.startActivity(intent);

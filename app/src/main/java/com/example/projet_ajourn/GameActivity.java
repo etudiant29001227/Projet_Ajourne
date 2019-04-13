@@ -26,14 +26,13 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void run() {
                 game.invalidate();
-                endGame();
-
+                checkEndGame();
             }
         },0,REFRESH);
     }
 
-    public void endGame(){
-        if(game.endGame()){
+    public void checkEndGame(){
+        if(game.isEndGame()){
             intent.putExtra("mark", game.getScore());
             timer.cancel();
             GameActivity.this.startActivity(intent);

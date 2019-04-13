@@ -24,13 +24,13 @@ public class GameView extends View {
     private Random rand = new Random();
     private Paint scorePaint = new Paint(),timerPaint = new Paint();
     private int Acceleration_Mod = LIENAR_ACCELERATION, canvasWidth, canvasHeight, eventY, score = 0, numberOfMark = 0, minutes, seconds;
-    private CountDownTimer countDownTimer;
-    private long timeLeftInMillisconds;
-    private boolean eventTouch, endGame = false;
-    private String timer;
-    private final static long CONVERT_TO_SECONDS = 1000, CONVERT_TO_MINUTES = 60000;
+    private long timeLeftInMillisconds = -1;
+    private boolean eventTouch;
+    private final static long CONVERT_TO_SECONDS = 1000, CONVERT_TO_MINUTES = 60000, TWO_SECONDE = 2000;
     private final static int LIENAR_ACCELERATION = 21, CONSTANT_ACCELERATION = 20, VELOCITY = 1, MAX_MARK_IN_SCREEN = 7, CHANGE_TIMER_DISPLAY = 10, LICENCE_1 = 1,LICENCE_2 = 2, LICENCE_3 = 3, MASTER_1 = 4, MASTER_2 = 5;
     private final static double MIDDLE_SCREEN = 2.5;
+    private Timer time;
+    private  String timer;
 
     public GameView(Context context) {
         super(context);
@@ -65,8 +65,13 @@ public class GameView extends View {
         }else{student.reposeStudent();}
         if(student.getY() == -1){
             student.setY((int) (canvasHeight/MIDDLE_SCREEN));
-            startTimer();
+            time = new Timer(timeLeftInMillisconds,1000);
+            time.setSecondsAdded(2000);
+            time.start();
         }
+        timeLeftInMillisconds = time.getTimeLifeInMilliSeconds();
+        System.out.println("Timer = "+time.getTimeLifeInMilliSeconds());
+        updateTimer();
 
         CreateGrades(view);
         canvas.drawBitmap(background,0,0,null);
@@ -80,20 +85,6 @@ public class GameView extends View {
 
     }
 
-    private void startTimer(){
-        countDownTimer = new CountDownTimer(timeLeftInMillisconds, CONVERT_TO_SECONDS) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                timeLeftInMillisconds = millisUntilFinished;
-                updateTimer();
-            }
-
-            @Override
-            public void onFinish() {
-                endGame = true;
-            }
-        }.start();
-    }
 
     private void updateTimer(){
         minutes = (int) (timeLeftInMillisconds / CONVERT_TO_MINUTES);
@@ -195,6 +186,11 @@ public class GameView extends View {
             if(Collision(object, marks.get(i))){
                 score = score + marks.get(i).getScore();
                 numberOfMark = numberOfMark + 1;
+                if(marks.get(i).getScore()>15){
+                    time.addTime();
+                }else if(marks.get(i).getScore()<10){
+                    time.removeTime();
+                }
                 marks.remove(marks.get(i));
                 collison = true;
             }
@@ -226,8 +222,13 @@ public class GameView extends View {
         return score/numberOfMark;
     }
 
-    public boolean endGame(){
-        return endGame;
+    public boolean isEndGame(){
+      //  System.out.println("endGame :"+time);
+
+        if(time != null && time.getTimeLifeInMilliSeconds() <=0) {
+            return true;
+        }
+        return false;
     }
 
 }
