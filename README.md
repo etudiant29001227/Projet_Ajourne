@@ -11,3 +11,5 @@ Le jeu est découper en plusieur écran qui les suivants:
    - L'écran de jeux.
    - Un écran permettant d'ajouter un score.
    - Un écran permettant de visionner le tableau des scores.
+   
+   Le archive resources contient le rapport
