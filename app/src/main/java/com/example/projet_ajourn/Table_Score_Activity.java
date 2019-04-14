@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.view.Menu;
 
 public class Table_Score_Activity extends AppCompatActivity {
 

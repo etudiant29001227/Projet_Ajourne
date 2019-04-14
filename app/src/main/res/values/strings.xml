@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Projet Ajourné</string>
+    <string name="app_name">Projet Ajournée</string>
     <string name="start">Start</string>
     <string name="score">Score</string>
     <string name="title_label">Name</string>
@@ -12,5 +12,6 @@
     <string name="dfficulty4">Master1</string>
     <string name="dfficulty5">Master 2</string>
     <string name="menu_delete">Delete</string>
+    <string name="table_name">Scoreboard</string>
 
 </resources>

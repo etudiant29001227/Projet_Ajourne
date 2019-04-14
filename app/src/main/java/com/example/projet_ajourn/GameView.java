@@ -36,7 +36,7 @@ public class GameView extends View {
         super(context);
         student = new Student(this);
         view = this;
-        background = BitmapFactory.decodeResource(getResources(),R.drawable.background);
+        background = BitmapFactory.decodeResource(getResources(),R.drawable.backgroung);
         scorePaint.setColor(Color.WHITE);
         scorePaint.setTextSize(70);
         scorePaint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -154,6 +154,7 @@ public class GameView extends View {
 
     private  void CreateGrade(View view){
         Mark mark = new Mark(view);
+        System.out.println("Mark height : "+mark.getHeight());
         do {
             mark.setX(rand.nextInt(canvasHeight * 2 - canvasWidth) + canvasHeight + mark.getHeight());
             mark.setY(rand.nextInt((canvasHeight - mark.getHeight() - mark.getHeight())) + mark.getHeight());
@@ -204,16 +205,16 @@ public class GameView extends View {
                 timeLeftInMillisconds = 60000;
                 break;
                 case LICENCE_2:
-                    timeLeftInMillisconds = 50000;
-                break;
-                case LICENCE_3:
                     timeLeftInMillisconds = 40000;
                 break;
+                case LICENCE_3:
+                    timeLeftInMillisconds = 25000;
+                break;
                 case MASTER_1:
-                    timeLeftInMillisconds = 30000;
+                    timeLeftInMillisconds = 15000;
                 break;
                 case MASTER_2:
-                    timeLeftInMillisconds = 20000;
+                    timeLeftInMillisconds = 10000;
 
         }
     }

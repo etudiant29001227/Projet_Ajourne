@@ -23,6 +23,14 @@ public class EditActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
     public void okClick(View v){
         Score newScore = new Score(0,name.getText().toString(),mark);
         Intent intent = new Intent(this,Table_Score_Activity.class);
